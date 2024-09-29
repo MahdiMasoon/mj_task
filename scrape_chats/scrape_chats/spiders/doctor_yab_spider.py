@@ -5,10 +5,6 @@ import scrapy
 
 class ChatsSpider(scrapy.Spider):
     name = "chats"
-
-    page_count = 0
-    page_limit = 5
-
     start_urls = [
         "https://doctor-yab.ir/faq/?page=1"
     ]
@@ -25,10 +21,9 @@ class ChatsSpider(scrapy.Spider):
 
         next_page = response.css("li.PagedList-skipToNext a::attr(href)").get()
 
-        if next_page is not None and self.page_count < self.page_limit:
+        if next_page is not None:
 
             next_page = response.urljoin(next_page)
-            self.page_count = self.page_count + 1
             yield scrapy.Request(next_page, callback=self.parse)
 
     def parse_chat(self, response):
