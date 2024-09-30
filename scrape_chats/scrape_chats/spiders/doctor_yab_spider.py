@@ -77,6 +77,7 @@ char_mappings = {
         "\u200b": "",
         "\ufe0f": "",
         "\ufeff": "",
+        "\n": "",
         # Camma (will be replaced by dots for floating point numbers)
         ",": ".",
         # And (will be replaced by dots for floating point numbers)
@@ -277,9 +278,9 @@ char_mappings = {
         "\u0652": "",
     }
 
-def clean_persian_text(text: str) -> str:
+translation_table = dict((ord(a), b) for a, b in char_mappings.items())
 
-    translation_table = dict((ord(a), b) for a, b in char_mappings.items())
+def clean_persian_text(text: str) -> str:
     # Map invalid characters with replacement to valid characters.
     # apply the translation table to the text
     return text.translate(translation_table)
