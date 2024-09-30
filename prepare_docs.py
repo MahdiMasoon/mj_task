@@ -75,21 +75,8 @@ for i, faq in tqdm(enumerate(faqs), total=len(faqs)):
 # # summarize similar questions
 # chain.invoke({'questions': '\n'.join(questions)})  ###
 
+print(f"we have {len(faqs)} chats and after this process we have {len(unique_faqs)} documents")
 
-def faq_to_doc(faqs):
-    docs = []
-
-    for faq in faqs:
-        docs.append(Document(page_content=faq['question'], metadata={'answers': '\n'.join(
-            [f"{answer['dr_name']} {answer['dr_exp']}: {answer['answer_text']}" for answer in faq['answers']])}))
-
-    return docs
-
-
-docs = faq_to_doc(unique_faqs)
-
-print(f"we have {len(faqs)} chats and after this process we have {len(docs)} documents")
-
-with open("docs.json", "w") as fp:
-    string_representation = dumps(docs)
+with open("unique_faqs.json", "w") as fp:
+    string_representation = dumps(unique_faqs)
     fp.write(string_representation)
