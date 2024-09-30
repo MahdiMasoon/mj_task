@@ -29,7 +29,7 @@ def convert_to_document(faqs):
 
 docs = convert_to_document(faqs)
 
-model_kwargs = {'device': 'cpu', 'trust_remote_code': True}
+model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
 
 encode_kwargs = {}
 
